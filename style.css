@@ -1,0 +1,58 @@
+#scoreboard {
+    width: 90%;
+    margin: 20px auto;
+  }
+  
+  #myPointsContainer, #opponentsPointsContainer {
+    width: 50%;
+    float: left;
+    background-color: #0E1F59;
+    /* background-color: red; */
+  }
+  
+  #myPoints, #opponentsPoints {
+    width: 75%;
+    margin: 0 auto 40px auto;
+    background-color: #3189E8;
+    color: #0E1F59;
+    font-size: 150px;
+    font-family: Arial;
+    text-align: center;
+  }
+  
+  #myPoints:hover {
+    cursor: pointer;
+  }
+  
+  #opponentsPoints:hover {
+    cursor: pointer;
+  }
+  
+  #myGames, #opponentsGames {
+    width: 20%;
+    margin: 0 auto 30px auto;
+    background-color: #3189E8;
+    text-align: center;
+    font-size: 50px;
+    font-family: Arial;
+    color: #0E1F59;
+  }
+  
+  #result {
+    margin: 20px;
+    padding: 10px;
+    font-size: 60px;
+    font-family: Arial;
+  }
+  
+  p {
+    margin: 20px;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: Arial;
+  }
+  
+  #clearfix {
+    clear: both;
+  }
