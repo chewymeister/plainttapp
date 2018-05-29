@@ -14,6 +14,7 @@ const players = {
 function addPoint(currentPlayerId, opponentId) {
   currentPlayer = players[currentPlayerId]
   opponent = players[opponentId]
+
   currentPlayerPointsCount = document.querySelector('.pointsContainer.' + currentPlayerId + ' > .pointsCount')
   currentPlayerGamesCount = document.querySelector('.pointsContainer.' + currentPlayerId + ' > .gamesCount')
 
@@ -24,17 +25,18 @@ function addPoint(currentPlayerId, opponentId) {
     currentPlayer.games += 1;
     currentPlayerGamesCount.innerHTML = currentPlayer.games;
 
-    if (currentPlayer.games === 2) {
+    if (currentPlayer.games === 3) {
       document.getElementById('result').innerHTML = currentPlayer.name + ' wins!';
+      document.querySelectorAll('.pointsCount').forEach(function (element) {
+        element.onclick = null
+      })
       
     } else {
       currentPlayer.points = 0;
       opponent.points = 0;
-      points = document.getElementsByClassName('pointsCount')
-      for( i = 0; i < points.length; i++) {
-        pointElem = points[i]
-        pointElem.innerHTML = 0;
-      }
+      document.querySelectorAll('.pointsCount').forEach(function (element) {
+        element.innerHTML = 0
+      });
     }
   }
 }
