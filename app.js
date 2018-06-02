@@ -14,37 +14,77 @@ class Player {
   }
 }
 
+class Score {
+  constructor() {
+    this.pointsClass = 'pointsCount'
+    this.gamesClass = 'gamesCount'
+  }
+
+  fetchPoints(currentPlayerId) {
+    const selector = this.countSelector(currentPlayerId, this.pointsClass)
+    return document.querySelector(selector)
+  }
+
+  updatePoints(currentPlayerId, points) {
+    this.fetchPoints(currentPlayerId).innerHTML = points
+  }
+
+  updateGames(currentPlayerId, games) {
+    this.fetchGames(currentPlayerId).innerHTML = games
+  }
+
+  fetchGames(currentPlayerId) {
+    const selector = this.countSelector(currentPlayerId, this.gamesClass)
+    return document.querySelector(selector)
+  }
+
+  announceVictoryFor(player) {
+    document.getElementById('result').innerHTML = player + ' wins!';
+  }
+
+  disableAddPoint() {
+    document.querySelectorAll('.pointsCount').forEach(function (element) {
+      element.onclick = null
+    })
+  }
+
+  resetAllPoints() {
+    document.querySelectorAll('.pointsCount').forEach(function (element) {
+      element.innerHTML = 0
+    });
+  }
+
+  countSelector(currentPlayerId, scoreType) {
+    return '.score.' + currentPlayerId + ' > .' + scoreType
+  }
+}
+
 const players = {
   'home': new Player('George', 'home'),
   'away': new Player('Jon', 'away'),
 };
 
+score = new Score()
+
 function addPoint(currentPlayerId, opponentId) {
   currentPlayer = players[currentPlayerId]
   opponent = players[opponentId]
 
-  currentPlayerPointsCount = document.querySelector('.pointsContainer.' + currentPlayerId + ' > .pointsCount')
-  currentPlayerGamesCount = document.querySelector('.pointsContainer.' + currentPlayerId + ' > .gamesCount')
-
   currentPlayer.points += 1
-  currentPlayerPointsCount.innerHTML = currentPlayer.points
+  score.updatePoints(currentPlayerId, currentPlayer.points)
 
   if (currentPlayer.wonGameAgainst(opponent)) {
     currentPlayer.games += 1;
-    currentPlayerGamesCount.innerHTML = currentPlayer.games;
+    score.updateGames(currentPlayerId, currentPlayer.games)
 
     if (currentPlayer.wonTheMatch()) {
-      document.getElementById('result').innerHTML = currentPlayer.name + ' wins!';
-      document.querySelectorAll('.pointsCount').forEach(function (element) {
-        element.onclick = null
-      })
+      score.announceVictoryFor(currentPlayer.name)
+      score.disableAddPoint()
 
     } else {
       currentPlayer.points = 0;
       opponent.points = 0;
-      document.querySelectorAll('.pointsCount').forEach(function (element) {
-        element.innerHTML = 0
-      });
+      score.resetAllPoints()
     }
   }
 }
